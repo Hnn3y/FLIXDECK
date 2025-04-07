@@ -9,7 +9,7 @@ function Movie({movie}) {
             <img/>
 
             <div className="movie-overlay">
-                <button className="favorite" onClick={buttonClick}>.</button>
+                <button className="favorite" onClick={buttonClick}>♡</button>
             </div>
         </div>
 

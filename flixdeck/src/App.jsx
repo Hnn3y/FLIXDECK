@@ -1,15 +1,12 @@
 import './App.css'
-import MovieCard from './Card.jsx'
+import Home from './pages/Home.jsx';
 
 
 function App() {
 
   return (
     <>
-    <MovieCard movie={{
-      title: "Movie", 
-      release:"2025"
-    }}/>
+    <Home/>
       
     </>
   )
