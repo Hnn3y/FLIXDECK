@@ -1,3 +1,6 @@
+import './css/Card.css';
+
+
 function Movie({movie}) {
 
     function buttonClick(){
