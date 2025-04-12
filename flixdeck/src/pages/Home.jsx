@@ -1,26 +1,44 @@
 import MovieCard from '../Card.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { searchMovies, getMovies } from '../services/api.js';
 import '../css/Home.css';
 
 
 function Home () {
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, setSearchQuery] = useState("");
+    const [movies, setMovies] = useState([]);
+    const [error, setError] = useState (null)
+    const [loading, setLoading ] = useState(true)
 
+    useEffect(() => {
+        const loadMovies = async () => {
+            try {
+                const popularMovies = await getMovies();
+                setMovies(popularMovies);
+            } catch (err) {
+                console.log(err);
+                setError("Failed to Load.");
+            } finally {
+                setLoading(false);
+            }
+        };
+    
+        loadMovies(); 
+    }, []);
+    
 
-    const movies = [
-        {id: 1, title: "Back in Action", release:"2025"},
-        {id: 2, title: "The Witcher", release:"2025"},
-        {id: 3, title: "Game Changer", release:"2025"},
-        {id: 4, title: "Secrect Level", release:"2025"},
-        {id: 5, title: "Black Knight", release:"2025"},
-        {id: 6, title: "Risk", release:"2025"},
-    ]
-
-    const handleSearch = () => {
-        e.preventDefault()
-        alert(searchQuery)
-        setSearchQuery("")
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        try {
+            const results = await searchMovies(searchQuery);
+            setMovies(results);
+        } catch (error) {
+            console.log(error);
+            setError("Search failed.");
+        }
+        setSearchQuery("");
     };
+    
 
     return (
     <div className="home">
@@ -31,12 +49,12 @@ function Home () {
         </form>
 
         <div className="grid">
-            {movies.map(
-                (movie) => 
-                movie.title.toLowerCase().startsWith(searchQuery) && (
-                <MovieCard movie={movie} key={movie.id}/> )
-                )}
-        </div>
+    {movies.length === 0 && !loading && <p>No movies found.</p>}
+    {movies.map((movie) => (
+        <MovieCard movie={movie} key={movie.id} />
+    ))}
+</div>
+
     </div>
     )
 } 
