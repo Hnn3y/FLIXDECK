@@ -48,15 +48,20 @@ function Home () {
             <button type="Submit" className="search-button">Search</button>
         </form>
 
-        <div className="grid">
-    {movies.length === 0 && !loading && <p>No movies found.</p>}
-    {movies.map((movie) => (
-        <MovieCard movie={movie} key={movie.id} />
-    ))}
-</div>
+
+        {error && <div className="error-message">{error}</div>}
+        
+        {loading ? (
+            <div className="loading"> Loading... </div>) : 
+            (   <div className="movies-grid">
+          {movies.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+    ) }
 
     </div>
-    )
+    );
 } 
 
 export default Home;
