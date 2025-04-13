@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+
+"homepage": "https://hnn3y.github.io/FLIXDECK/",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
