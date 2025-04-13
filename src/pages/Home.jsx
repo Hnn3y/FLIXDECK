@@ -27,17 +27,22 @@ function Home () {
     }, []);
     
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        try {
-            const results = await searchMovies(searchQuery);
-            setMovies(results);
-        } catch (error) {
-            console.log(error);
-            setError("Search failed.");
-        }
-        setSearchQuery("");
-    };
+  const handleSearch = async (e) => {
+    e.preventDefault ();
+    if (!searchQuery.trim()) return
+    if(loading) return
+
+    setLoading(true)
+    try {
+        const searchResults = await searchMovies(searchQuery)
+        setMovies(searchResults)
+        setError(null)
+    } catch (err) 
+    {setError("Failed to Load...")} 
+    finally {setLoading(false)}
+
+    setSearchQuery("");
+  };
     
 
     return (
