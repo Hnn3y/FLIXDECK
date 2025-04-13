@@ -41,7 +41,6 @@ function Home () {
     {setError("Failed to Load...")} 
     finally {setLoading(false)}
 
-    setSearchQuery("");
   };
     
 
